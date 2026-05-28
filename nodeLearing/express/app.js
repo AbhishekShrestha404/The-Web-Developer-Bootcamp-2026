@@ -7,7 +7,7 @@ const app = express();
 //     res.send("moshi mosho donalddesu");
 // })
 
-app.get("/cat", (req, res) => {
+app.get('/cat', (req, res) => {
     res.send("mewo mewo");
 })
 
