@@ -1,0 +1,30 @@
+body {
+    font-family: EB Garamond, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0b1a38;
+
+
+}
+
+button {
+    background: none;
+    color: #fca311;
+    background-color: #0b1a38;
+    border: 2px solid #fca311;
+    padding: 1em 2em;
+    font-size: 1em;
+    transition: all 0.25s;
+
+}
+
+button:hover {
+    font-family: 'Courier New', Courier, monospace;
+    border-color: #f1ff5c;
+    color: #ffffff;
+    box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}

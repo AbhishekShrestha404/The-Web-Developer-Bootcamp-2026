@@ -1,0 +1,36 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
+
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: [true, 'Username cannot be blank']
+    },
+    password: {
+        type: String,
+        required: [true, 'Password cannot be blank']
+    }
+});
+
+// Validate username and password
+userSchema.statics.findAndValidate = async function (username, password) {
+    const foundUser = await this.findOne({ username });
+
+    if (!foundUser) {
+        return false;
+    }
+
+    const isValid = await bcrypt.compare(password, foundUser.password);
+
+    return isValid ? foundUser : false;
+};
+
+// Hash password before saving
+userSchema.pre('save', async function () {
+    if (!this.isModified('password')) return;
+
+    this.password = await bcrypt.hash(this.password, 12);
+});
+
+module.exports = mongoose.model('User', userSchema);

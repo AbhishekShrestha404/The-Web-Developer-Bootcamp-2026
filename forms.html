@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+
+<body>
+    <h1>Froms Demo</h1>
+    <form action="/post" method="post">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter a username." name="username"><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter a password." name="password"><br>
+        <button type="submit">submit</button>
+    </form>
+    <form action="https://www.reddit.com/search" name="q">
+        <input type="text" name="q">
+        <button> Search reddit</button>
+    </form>
+</body>
+<form action="/gender">
+    <h2>Select your Gender:</h2>
+    <label for="male">Male</label>
+    <input type="radio" name="gender" id="male" value="male">
+    <label for="female">Female</label>
+    <input type="radio" name="gender" id="female" value="female">
+    <label for="others">others</label>
+    <input type="radio" id="others" name="gender" value="others">
+    <button>submit</button>
+    <p>
+        <label for="meal">Please select your meal preferences:</label>
+        <select name=" meal" id=" meal">
+            <option value="">--Please chose an option.</option>
+            <option value="Veg">Veg</option>
+            <option value="Non-Veg">Non-Veg</option>
+            <option value="Egg">Egg</option>
+        </select>
+        <button>submit</button>
+    </p>
+
+
+</form>
+
+</html>

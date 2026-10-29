@@ -2,12 +2,11 @@ const path = require('path');
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({
-        path: path.join(__dirname, '../.env')
+        path: path.join(__dirname, './.env')
     });
 }
 const express = require('express');
 const mongoose = require('mongoose');
-const { mongoUri } = require('./dbConfig');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
@@ -25,6 +24,8 @@ const userRoutes = require('./routes/user');
 const campgroundsRoutes = require('./routes/campgrounds');
 const reviewsRoutes = require('./routes/reviews');
 
+const dbUrl = process.env.DB_URL;
+const { mongoUri } = require('./dbConfig');
 
 async function main() {
     await mongoose.connect(mongoUri);
