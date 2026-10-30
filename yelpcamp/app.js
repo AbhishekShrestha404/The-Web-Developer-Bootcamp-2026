@@ -24,17 +24,15 @@ const userRoutes = require('./routes/user');
 const campgroundsRoutes = require('./routes/campgrounds');
 const reviewsRoutes = require('./routes/reviews');
 
-const dbUrl = process.env.DB_URL;
+const { MongoStore } = require('connect-mongo');
+
 const { mongoUri } = require('./dbConfig');
 
-async function main() {
-    await mongoose.connect(mongoUri);
+const port = process.env.PORT || 3000;
+mongoose.connect(mongoUri)
+    .then(() => console.log('MONGO CONNECTION OPEN'))
+    .catch(err => console.error('MongoDB connection failed:', err));
 
-    console.log("MONGO CONNECTION OPEN");
-    app.listen(3000, () => {
-        console.log('Serving on port 3000')
-    });
-}
 const app = express();
 
 app.engine('ejs', ejsMate);
@@ -46,7 +44,20 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+const store = MongoStore.create({
+    mongoUrl: mongoUri,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    }
+});
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR");
+});
+
 const sessionConfig = {
+    store,
     name: 'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
@@ -95,8 +106,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err })
 })
 
-main().catch(err => {
-    console.error('MongoDB connection failed:', err);
-    process.exitCode = 1;
-});
+if (require.main === module) {
+    app.listen(port, () => console.log(`Serving on port ${port}`));
+}
+module.exports = app;
 

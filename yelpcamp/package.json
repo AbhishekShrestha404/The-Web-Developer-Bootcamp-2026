@@ -4,12 +4,19 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": "24.x"
+  },
+  "overrides": {
+    "htmlparser2": "^9.1.0"
+  },
   "dependencies": {
     "@maptiler/client": "^3.1.0",
     "cloudinary": "^1.41.3",
